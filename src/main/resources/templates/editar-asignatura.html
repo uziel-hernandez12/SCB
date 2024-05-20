@@ -83,7 +83,7 @@
                             <label for='miSelect'>Docente: </label>
                             <select class='form-control' th:field="*{docente}" id='docente'>
                                 <option th:each="docente: ${docentes}" 
-                                        th:value="${docente.docMatricula}" th:text="${docente.docNombre}"></option>
+                                        th:value="${docente.docMatricula}" th:text="${docente.docNombre} + ' ' + ${docente.docApellidos}"></option>
                             </select>
                         </div>
                         <div class='form-outline mb-4'>

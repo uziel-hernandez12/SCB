@@ -46,10 +46,32 @@ public class ListadoAsignaturasController {
      * @return
      */
     @RequestMapping("asignaturas/buscar")
-    public String buscar(Model model, @RequestParam("q") String consulta) {
+    public String buscar(Model model, @RequestParam("q") String consulta,
+            @RequestParam(defaultValue = "0") int pagina) {
+        // Tamaño de las asignaturas por página
+        int tamañoDeAsignaturas = 5;
+
         List<Asignatura> asignaturas = asignaturaService.buscar(consulta);
 
-        model.addAttribute("asignaturas", asignaturas);
+        // Calcular el número total de páginas
+        int totalPaginas = (int) Math.ceil((double) asignaturas.size() / tamañoDeAsignaturas);
+
+        // Validar la página actual para asegurar que esté dentro de los límites
+        if (pagina >= totalPaginas) {
+            pagina = totalPaginas - 1;
+        }
+
+        // Calcular los índices de inicio y fin para la paginación
+        int inicioIndice = pagina * tamañoDeAsignaturas;
+        int finalIndice = Math.min(inicioIndice + tamañoDeAsignaturas, asignaturas.size());
+
+        // Obtener las asignaturas para la página actual
+        List<Asignatura> asignaturasPaginadas = asignaturas.subList(inicioIndice, finalIndice);
+
+        // Agregar las asignaturas paginadas y la información de paginación al modelo
+        model.addAttribute("asignaturas", asignaturasPaginadas);
+        model.addAttribute("totalPaginas", totalPaginas);
+        model.addAttribute("currentPage", pagina);
         model.addAttribute("consulta", consulta);
         return "listado.html";
     }
@@ -93,7 +115,6 @@ public class ListadoAsignaturasController {
         return "listado";
     }
 
-    
     /**
      * Muestra el listado de asignaturas por programa académico con paginación.
      *
