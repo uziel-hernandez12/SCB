@@ -1,0 +1,32 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:classappend": {
+            "context": "li"
+        },
+        "th:text": {
+            "context": "span"
+        },
+        "th:if": {
+            "context": "div"
+        },
+        "th:action": {
+            "context": "form"
+        },
+        "th:src": {
+            "context": "img"
+        },
+        "th:href": {
+            "context": "a"
+        },
+        "th:field": {
+            "context": "textarea"
+        },
+        "th:each": {
+            "context": "option"
+        },
+        "th:placeholder": {
+            "context": "input"
+        }
+    }
+}
