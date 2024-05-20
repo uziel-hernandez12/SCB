@@ -22,7 +22,8 @@ public class WebSecurityConfig {
    /**
     * Método para crear un bean de codificador de contraseñas.
     * Este método crea y configura un codificador de contraseñas BCrypt.
-    * BCrypt es un algoritmo de hashing de contraseñas que es seguro y adecuado para almacenar contraseñas en la base de datos.
+    * BCrypt es un algoritmo de hashing de contraseñas que es seguro y 
+    * adecuado para almacenar contraseñas en la base de datos.
     * 
     * @return Un objeto PasswordEncoder que utiliza el algoritmo BCrypt para codificar contraseñas.
     */
