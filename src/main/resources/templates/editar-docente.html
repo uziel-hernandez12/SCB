@@ -22,7 +22,7 @@
                 <div class="navbar-collapse collapse show" id="navbarSupportedContent" style="">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Inicio</a>
+                            <a class="nav-link" th:href="@{/inicio}">Inicio</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Asignaturas</a>
@@ -53,9 +53,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Autores</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
-                        </li>
+                        <form class="d-flex" th:action="@{/logout}" method="post">
+                            <button class="btn btn-outline-light" type="submit">Cerrar Sesión</button>
+                        </form>
                     </ul>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class='form-outline mb-4'>
                             <label for="asigTitulo" >Email:</label>
-                            <input type="text" class="form-control" th:field="*{docEmail}" id="docEmail"  required>
+                            <input type="email" class="form-control" th:field="*{docEmail}" id="docEmail"  required>
                         </div>
                         <div class='form-outline mb-4'>
                             <label for='miSelect'>Departamento: </label>

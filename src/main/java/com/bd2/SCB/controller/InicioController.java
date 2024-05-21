@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class InicioController {
 
-    @GetMapping("/")
-    public String showHome() {
+    @GetMapping("/inicio")
+    public String mostrarInicio() {
         try {
             // Lógica para mostrar la página de inicio
             return "inicio";
