@@ -72,7 +72,7 @@ public class ListadoDocentesController {
      */
     @RequestMapping("docentes/listado")
     public String listadoDocentes(Model model, @RequestParam(defaultValue = "0") int pagina) {
-        int tamañoDeDocentes = 4;
+        int tamañoDeDocentes = 8;
 
         // Obtener todos los docentes de la base de datos
         List<Docente> docentes = docenteService.obtenerTodos();

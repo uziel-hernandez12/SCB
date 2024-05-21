@@ -7,9 +7,8 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="estilos/styles.css">
 
-        <title>SCB - Algo salió mal</title>
+        <title>SCB</title>
         <style>
             .error-container {
                 text-align: center;
@@ -23,32 +22,9 @@
         </style>
     </head>
     <body>
-        <!-- As a link -->
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" th:href="@{/}">
-                SCB
-            </a>
-        </nav>
+        <h1>Welcome</h1>
+        <p>Click <a th:href="@{/login}">here</a> to login.</p>
 
-        <div class="container mt-5 vj-destacados">
-            <div class="row">
-                <div class="col col-md-12 mb-4">                    
-                    <div class="error-container">
-                        <img th:src="@{/img/error-icon.png}" alt="Error" class="error-image">
-                        <h2>¡Oops! Algo salió mal.</h2>
-                        <p>Lo sentimos, se produjo un error al procesar su solicitud.</p>
-                        <p>Error: <span th:text="${mensajeError}" class="badge badge-danger"></span></p>
-                        <!-- Puedes proporcionar más detalles sobre el error si lo deseas -->
-                        <a href="#" onclick="goBack()" class="btn btn-outline-success">Regresar</a>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        <script>
-            function goBack() {
-                window.history.go(-1);
-            }
-        </script>
 
 
         <!-- Optional JavaScript -->

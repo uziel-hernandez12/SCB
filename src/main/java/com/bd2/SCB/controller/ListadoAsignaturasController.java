@@ -49,7 +49,7 @@ public class ListadoAsignaturasController {
     public String buscar(Model model, @RequestParam("q") String consulta,
             @RequestParam(defaultValue = "0") int pagina) {
         // Tamaño de las asignaturas por página
-        int tamañoDeAsignaturas = 5;
+        int tamañoDeAsignaturas = 8;
 
         List<Asignatura> asignaturas = asignaturaService.buscar(consulta);
 
@@ -86,7 +86,7 @@ public class ListadoAsignaturasController {
     @RequestMapping("/asignaturas/listado")
     public String mostrarListado(Model model, @RequestParam(defaultValue = "0") int pagina) {
         // Tamaño de las asignaturas por página
-        int tamañoDeAsignaturas = 5;
+        int tamañoDeAsignaturas = 8;
 
         // Obtener todas las asignaturas de la base de datos
         List<Asignatura> asignaturas = asignaturaService.obtenerTodas();
@@ -128,7 +128,7 @@ public class ListadoAsignaturasController {
             @RequestParam(defaultValue = "0") int pagina) {
 
         // Tamaño de las asignaturas por página
-        int tamañoDeAsignaturas = 5;
+        int tamañoDeAsignaturas = 8;
 
         // Obtener las asignaturas por programa académico
         List<Asignatura> asignaturasDePrograma = asignaturaService.obtenerPorPrograma(proId);
@@ -170,7 +170,7 @@ public class ListadoAsignaturasController {
             @RequestParam(defaultValue = "0") int pagina) {
 
         // Tamaño de las asignaturas por página
-        int tamañoDeAsignaturas = 5;
+        int tamañoDeAsignaturas = 8;
 
         // Obtener las asignaturas por docente
         List<Asignatura> asignaturasDeDocente = asignaturaService.obtenerPorDocente(matricula);
