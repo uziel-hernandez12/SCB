@@ -87,9 +87,9 @@
                 <div class="consulta mt-3">
                     <h4 class="consulta-titulo">Consulta 2:</h4>
                     <textarea class="form-control form-control-lg consulta-textarea" name="consulta" readonly>
-            SELECT a 
-            FROM Autor a 
-            WHERE a.paisId IN (SELECT p.paisId FROM Pais p WHERE p.paisId = ?);
+SELECT a 
+FROM Autor a 
+WHERE a.pais.id = ?1
                     </textarea>
                     <div class="form-group">
                         <label for="paisId">Selecciona un pais:</label>
