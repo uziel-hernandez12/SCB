@@ -3,14 +3,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">        
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+        <!-- Google Fonts Roboto -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
         <!-- Bootstrap links -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <!--Libreria sweetalert2 -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 
-        <link  rel="stylesheet" href="static/estilos/styles.css">
         <title>Editar docente</title>
     </head>
     <body>
@@ -19,7 +21,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse show" id="navbarSupportedContent" style="">
+                <div class="navbar-collapse collapse show" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/inicio}">Inicio</a>
@@ -51,7 +53,7 @@
                             <a class="nav-link" href="#">Libros</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Autores</a>
+                            <a class="nav-link" th:href="@{/consultas}">Consultas</a>
                         </li>
                         <form class="d-flex" th:action="@{/logout}" method="post">
                             <button class="btn btn-outline-light" type="submit">Cerrar Sesión</button>
@@ -59,15 +61,13 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-        <div class='container mt-5'>
+        </nav>  
+        <div class='container mt-5 flex'>
             <div class='row'>
                 <div class='col'>
                     <h1 class="text-center">Editar Docente</h1>
                 </div>
             </div>
-        </div>
-        <div class='container'>
             <div class='row'>
                 <div class='col'>
                     <form  method='POST' th:action="@{/docentes/guardarCambios}" th:object="${docente}">
@@ -88,7 +88,7 @@
                         <div class='form-outline mb-4'>
                             <label for="asigTitulo">Link de Fotografía:</label>
                             <input type="text" class="form-control" th:field="*{docFoto}" id="docFoto" placeholder="Opcional"
-                                   th:attr="data-docfoto=${docFoto}">
+                                   >
                         </div>
 
                         <div class='form-outline mb-4'>
@@ -115,19 +115,32 @@
 
                 </div>
             </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const docFotoInput = document.getElementById('docFoto');
-                    const docFotoValue = docFotoInput.getAttribute('data-docfoto');
-                    const defaultPhotoUrl = 'https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280.jpg';
+        </div>
+        <footer class="bg-light text-center text-white mt-auto">
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;" href="https://www.facebook.com/uazcampusjalpa?mibextid=ZbWKwL" role="button"><i class="fab fa-facebook-f"></i></a>
+                    <!-- Instagram -->
+                    <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;" href="https://instagram.com/uaz_oficial?igshid=MzMyNGUyNmU2YQ==" role="button"><i class="fab fa-instagram"></i></a>
+                    <!-- Linkedin -->
+                    <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;" href="https://www.linkedin.com/in/uziel-jonathan-hern%C3%A1ndez-llamas-6290022a3?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" role="button"><i class="fab fa-linkedin-in"></i></a>
+                    <!-- Github -->
+                    <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="https://github.com/uziel-hernandez12" role="button"><i class="fab fa-github"></i></a>
+                </section>
+            </div>
+            <!-- Grid container -->
 
-                    if (docFotoValue === defaultPhotoUrl) {
-                        docFotoInput.value = '';
-                    } else {
-                        docFotoInput.value = docFotoValue;
-                    }
-                });
-            </script>
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2023 Copyright:
+                <a class="text-white" href="https://campusjalpa.uaz.edu.mx/">UAZ Campus Jalpa</a>
+            </div>
+            <!-- Copyright -->
+        </footer>
+
 
     </body>
 </html>
