@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Asignaturas</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consultas SQL</title>
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
         <!-- Google Fonts Roboto -->
@@ -13,6 +15,7 @@
         <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+
     </head>
     <body class="d-flex flex-column min-vh-100">
         <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #0c1c3c;">
@@ -59,75 +62,77 @@
                         </form>
                     </ul>
                 </div>
-                 <form th:action="@{/asignaturas/buscar}" class="form-inline my-2 my-lg-0">
-                    <input autofocus="autofocus" name="q" class="form-control mr-sm-2" type="search" th:placeholder="${param.q}" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-                </form>
             </div>
         </nav>  
-        <div class="container mt-5 flex-grow-1">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1 class="mt-4">Asignaturas en la BD</h1>
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Consultas SQL</h1>
+            <form th:action="@{/consultas/ejecutarConsultas}" method="post" class="mt-4">
+                <!-- Consulta 1 -->
+                <div class="consulta">
+                    <h4 class="consulta-titulo">Consulta 1:</h4>
+                    <textarea class="form-control form-control-lg consulta-textarea" name="consulta" readonly>
+            SELECT LIB_TITULO, LIB_AÑO_EDICION
+            FROM LIBRO 
+            WHERE LIB_AÑO_EDICION = (SELECT MIN(LIB_AÑO_EDICION) FROM LIBRO);
+                    </textarea>
+                    <div class="consulta-resultado">
+                        <p class="resultado-titulo">Resultado de la consulta:</p>
+                        <ul class="resultado-lista list-group" th:if="${librosAntiguos != null}">
+                            <li th:each="libro : ${librosAntiguos}" class="list-group-item" th:text="${libro.lib_titulo + ' (' + libro.lib_año_edicion + ')'}"></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-lg-6 text-end">
-                    <a th:href="@{/asignaturas/agregar}" class="btn btn-info mt-4" role="button">Nueva asignatura</a>
-                </div>
-                <div class="col">
 
-                    <hr>
-                    <table class="table table-striped " id="miTabla">
-                        <thead>
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Titulo</th>
-                                <th scope="col">Programa Academico</th>
-                                <th scope="col">Docente</th>
-                                <th scope="col" colspan="2">Operaciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="asig : ${asignaturas}">
-                                <td th:text="${asig.clave}"></td>
-                                <td th:text="${asig.titulo}"></td>
-                                <td><a th:href="@{/asignaturas/listado/programaAcademico(proId=${asig.programaAcademico.proId})}"
-                                       class="btn btn-outline-primary"
-                                       th:text="${asig.programaAcademico.proNombre}"></a></td>
-                                <td><a th:href="@{/asignaturas/listado/docente(matricula=${asig.docente.docMatricula})}"
-                                       class="btn btn-outline-primary"
-                                       th:text="${asig.docente.docNombre} + ' ' + ${asig.docente.docApellidos}"></a></td>
-                                <td><a th:href="@{/asignaturas/editar(id=${asig.clave})}"
-                                       class="btn btn-info" role="button" 
-                                       >Modificar</a></td>
-                                <td><a  th:href="@{/asignaturas/eliminar(id=${asig.clave})}" 
-                                        class="btn btn-danger" role="button">
-                                        Eliminar</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Consulta 2 -->
+                <div class="consulta mt-3">
+                    <h4 class="consulta-titulo">Consulta 2:</h4>
+                    <textarea class="form-control form-control-lg consulta-textarea" name="consulta" readonly>
+SELECT a 
+FROM Autor a 
+WHERE a.pais.id = ?1
+                    </textarea>
+                    <div class="form-group">
+                        <label for="paisId">Selecciona un pais:</label>
+                        <select class="form-control" id="paisId" name="id">
+                            <option th:each="pais : ${paises}" 
+                                    th:value="${pais.pais_id}" 
+                                    th:text="${pais.pais_nombre}"
+                                    th:selected="${pais.pais_id == paisSeleccionado}">
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="consulta-resultado">
+                        <p class="resultado-titulo">Resultado de la consulta 2:</p>
+                        <ul class="resultado-lista list-group" th:if="${autores != null}">
+                            <li th:each="autor : ${autores}" class="list-group-item" th:text="${autor.aut_nombre + ' ' + autor.aut_apellidos}"></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <!-- Controles de paginación -->
-            <div class="pagination-container">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{/asignaturas/listado(pagina=${currentPage - 1})}">Anterior</a>
-                        </li>
-                        <li th:each="pageNumber : ${#numbers.sequence(0, totalPaginas - 1)}" class="page-item" th:classappend="${pageNumber == currentPage ? 'active' : ''}">
-                            <a class="page-link" th:href="@{/asignaturas/listado(pagina=${pageNumber})}" th:text="${pageNumber + 1}"></a>
-                        </li>
-                        <li class="page-item" th:classappend="${currentPage == totalPaginas - 1 ? 'disabled' : ''}">
-                            <a class="page-link" th:href="@{/asignaturas/listado(pagina=${currentPage + 1})}">Siguiente</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+
+                <!-- Consulta 3 -->
+                <div class="consulta mt-3">
+                    <h4 class="consulta-titulo">Consulta 3:</h4>
+                    <textarea class="form-control form-control-lg consulta-textarea" name="consulta" readonly>
+            SELECT LIB_TITULO, LIB_AÑO_EDICION
+            FROM LIBRO 
+            WHERE LIB_AÑO_EDICION = (SELECT MAX(LIB_AÑO_EDICION) FROM LIBRO);
+                    </textarea>
+                    <div class="consulta-resultado">
+                        <p class="resultado-titulo">Resultado de la consulta 3:</p>
+                        <ul class="resultado-lista list-group" th:if="${librosRecientes != null}">
+                            <li th:each="libro : ${librosRecientes}" class="list-group-item" th:text="${libro.lib_titulo + ' (' + libro.lib_año_edicion + ')'}"></li>
+                        </ul>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Ejecutar Consultas</button>
+            </form>
         </div>
 
-        <footer class="bg-light text-center text-white mt-auto w-100">
+        <footer class="bg-light text-center text-white mt-auto">
             <!-- Grid container -->
-            <div class="container-fluid p-4 pb-0">
+            <div class="container p-4 pb-0">
                 <!-- Section: Social media -->
                 <section class="mb-4">
                     <!-- Facebook -->
@@ -149,6 +154,7 @@
             </div>
             <!-- Copyright -->
         </footer>
-
+        <!-- Bootstrap Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
